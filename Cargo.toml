@@ -1,0 +1,41 @@
+[package]
+authors = ["Rahix <rahix@rahix.de>"]
+name = "leonardo-examples"
+version = "0.1.0"
+
+[[bin]]
+name = "blink"
+path = "src/blink.rs"
+
+[[bin]]
+name = "interrupt"
+path = "src/interrupt.rs"
+
+[[bin]]
+name = "print_reg"
+path = "src/print_reg.rs"
+
+[[bin]]
+name = "pwm"
+path = "src/pwm.rs"
+
+[dependencies]
+
+[dependencies.arduino-leonardo]
+optional = false
+path = "../arduino-leonardo/"
+
+[dependencies.atmega32u4]
+optional = false
+path = "../atmega32u4"
+
+[dependencies.atmega32u4-hal]
+optional = false
+path = "../atmega32u4-hal"
+
+[profile]
+
+[profile.release]
+codegen-units = 1
+debug = false
+lto = true

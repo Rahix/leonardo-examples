@@ -1,3 +1,9 @@
+//! Print Register
+//! ==============
+//!
+//! Debug to to display the contents of a register using
+//! the led.  Only needed until some sort of serial interface
+//! is working.
 #![no_std]
 #![no_main]
 
@@ -20,7 +26,8 @@ pub extern fn main() {
 
     // Set val to whatever register you want to check
     let val: u8 = 0xAA;
-    let val: u8 = dp.USB.usbcon.read().bits();
+    // EG:
+    // let val: u8 = dp.USB.usbcon.read().bits();
 
     delay.delay_ms(500);
 

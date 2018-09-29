@@ -1,3 +1,7 @@
+//! Blink
+//! =====
+//!
+//! Basic blinking example, using the User LED, TX LED and RX LED
 #![no_std]
 #![no_main]
 extern crate arduino_leonardo;

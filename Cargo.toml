@@ -39,3 +39,4 @@ path = "../atmega32u4-hal"
 codegen-units = 1
 debug = false
 lto = true
+opt-level = "s"

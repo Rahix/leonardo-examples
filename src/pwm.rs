@@ -29,9 +29,9 @@ pub extern fn main() {
     loop {
         for i in 0..0xff {
             // Fade up and down
-            let index = if up { i } else { 0xfe - i };
+            let index = if up { i } else { 0xfe - i } as u16;
             // Scale brightness quadratic instead of linearly
-            let duty_cycle = ((index as u16).pow(2) >> 8) + 1;
+            let duty_cycle = ((index * index) >> 8) + 1;
             pin.set_duty_cycle(duty_cycle as u8);
             delay.delay_us(2000u16);
         }

@@ -11,11 +11,11 @@ extern crate atmega32u4;
 extern crate atmega32u4_hal;
 extern crate arduino_leonardo;
 
-use core::cell;
-
 use atmega32u4_hal::prelude::*;
+use atmega32u4_hal::port;
+use atmega32u4_hal::port::mode;
 
-static mut TXLED: Option<cell::RefCell<atmega32u4_hal::port::portd::PD5<atmega32u4_hal::port::mode::io::Output>>> = None;
+static TXLED: atmega32u4_hal::Global<port::portd::PD5<mode::io::Output>> = atmega32u4_hal::Global::new();
 
 #[no_mangle]
 pub extern fn main() {
@@ -31,9 +31,7 @@ pub extern fn main() {
 
     // This pin needs to be accessed in the isr, so we need to make it globally
     // available
-    atmega32u4::interrupt::free(|_| {
-        unsafe { TXLED = Some(cell::RefCell::new(txled)); }
-    });
+    TXLED.set(txled);
 
     // Initialize INT6
     ei.eicrb.write(|w| w.isc6().edge_both());
@@ -62,11 +60,10 @@ pub extern fn main() {
 interrupt!(INT6, isr);
 fn isr() {
     let mut delay = arduino_leonardo::Delay::new();
-    if let &Some(ref txled_cell) = unsafe { &TXLED } {
-        let mut txled = txled_cell.borrow_mut();
+    TXLED.get(|txled| {
         txled.set_low();
         delay.delay_ms(100);
         txled.set_high();
         delay.delay_ms(100);
-    }
+    }).expect("Interrupt fired before txled was set");
 }

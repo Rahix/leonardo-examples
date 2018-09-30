@@ -37,12 +37,6 @@ pub extern fn main() {
     ei.eicrb.write(|w| w.isc6().edge_both());
     ei.eimsk.write(|w| w.int6().set_bit());
 
-    // The bootloader leaves USB enabled;  this is problematic
-    // because USB continuously generates interrupts until some
-    // code handles it.  Just disable USB altogether for this
-    // example.
-    dp.USB.usbcon.reset();
-
     // Enable interrupts
     atmega32u4::interrupt::enable();
 

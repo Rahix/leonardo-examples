@@ -21,5 +21,8 @@
     "gcc": ["-Wl,--gc-sections"]
   },
 
+  "singlethread": true,
+  "no-builtins": false,
+
   "no-default-libraries": false
 }

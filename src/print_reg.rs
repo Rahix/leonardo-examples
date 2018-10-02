@@ -16,13 +16,11 @@ use atmega32u4_hal::prelude::*;
 #[no_mangle]
 pub extern fn main() {
     let dp = atmega32u4::Peripherals::take().unwrap();
-    let ei = dp.EXT_INT;
-    let mut portc = dp.PORTC.split();
-    let mut porte = dp.PORTE.split();
 
     let mut delay = arduino_leonardo::Delay::new();
+    let mut pins = arduino_leonardo::Pins::new(dp.PORTB, dp.PORTC, dp.PORTD, dp.PORTE);
 
-    let mut led = portc.pc7.into_output(&mut portc.ddr);
+    let mut led = pins.d13.into_output(&mut pins.ddr);
 
     // Set val to whatever register you want to check
     let val: u8 = 0xAA;

@@ -21,13 +21,18 @@ static TXLED: atmega32u4_hal::Global<port::portd::PD5<mode::io::Output>> = atmeg
 pub extern fn main() {
     let dp = atmega32u4::Peripherals::take().unwrap();
     let ei = dp.EXT_INT;
-    let mut portc = dp.PORTC.split();
-    let mut portd = dp.PORTD.split();
 
     let mut delay = arduino_leonardo::Delay::new();
+    let mut pins = arduino_leonardo::Pins::new(dp.PORTB, dp.PORTC, dp.PORTD, dp.PORTE);
 
-    let mut led = portc.pc7.into_output(&mut portc.ddr);
-    let txled = portd.pd5.into_output(&mut portd.ddr);
+    let mut led = pins.d13.into_output(&mut pins.ddr);
+    let txled = pins.led_tx.into_output(&mut pins.ddr);
+
+    // In theory this should not be necessary ... But if you previously had
+    // a sketch from Arduino loaded, the USB device will not have been reset.
+    // Because of this we will be spammed with interrupts which will never
+    // stop because they are never handled.
+    dp.USB.usbcon.reset();
 
     // This pin needs to be accessed in the isr, so we need to make it globally
     // available

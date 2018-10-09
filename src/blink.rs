@@ -24,9 +24,9 @@ pub extern fn main() {
     led2.set_high();
 
     let mut leds = [
-        led0.downgrade().downgrade(),
-        led1.downgrade().downgrade(),
-        led2.downgrade().downgrade(),
+        led0.downgrade(),
+        led1.downgrade(),
+        led2.downgrade(),
     ];
 
     loop {

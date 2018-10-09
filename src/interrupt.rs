@@ -35,17 +35,19 @@ pub extern fn main() {
     dp.USB.usbcon.reset();
 
     // This pin needs to be accessed in the isr, so we need to make it globally
-    // available
+    // available.  To do so safely, we make use of the atmega32u4_hal::Global API
     TXLED.set(txled);
 
     // Initialize INT6
+    // There is not yet a hal implementation, which is why we need to do this
+    // manually
     ei.eicrb.write(|w| w.isc6().edge_both());
     ei.eimsk.write(|w| w.int6().set_bit());
 
     // Enable interrupts
     atmega32u4::interrupt::enable();
 
-    // Do something
+    // Do something in idle
     loop {
         led.set_high();
         delay.delay_ms(100);
@@ -60,6 +62,7 @@ interrupt!(INT6, isr);
 fn isr() {
     let mut delay = arduino_leonardo::Delay::new();
     TXLED.get(|txled| {
+        // Blink the TX LED when the interrupt is triggered
         txled.set_low();
         delay.delay_ms(100);
         txled.set_high();

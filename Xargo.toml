@@ -1,3 +1,2 @@
 [dependencies]
-core = { path = "../libcore" }
-# core = { git = "https://github.com/avr-rust/libcore", branch = "rust-26015da0" }
+core = { git = "https://github.com/Rahix/libcore-avr", branch = "rust-26015da0" }

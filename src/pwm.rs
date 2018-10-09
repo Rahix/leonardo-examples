@@ -18,6 +18,8 @@ pub extern fn main() {
     let mut pins = arduino_leonardo::Pins::new(dp.PORTB, dp.PORTC, dp.PORTD, dp.PORTE);
 
     // According to the manual, PC7(D13) is connected to Timer/Counter4
+    // If you don't want to look it up, just try supplying a wrong one, rustc will
+    // tell you which one you need ;)
     let mut pwm4 = atmega32u4_hal::timer::Timer4Pwm::new(dp.TIMER4);
 
     // First make the pin an output, then enable the PWM timer

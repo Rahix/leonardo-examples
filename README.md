@@ -6,6 +6,14 @@ A few examples of using the `arduino-leonardo`, `atmega32u4-hal` and `atmega32u4
 * [interrupt](src/interrupt.rs): Setup a pin interrupt and show how to install a handler
 * [pwm](src/pwm.rs): Demo of setting a pin into PWM mode
 
+For easily uploading the compiled demos to your Leonardo, there are two scripts available:
+
+* [`mkhex.sh`](mkhex.sh): Convert the `.elf` that rust produces to a `.hex` that can be flashed.
+  Also outputs the size of the final binary. Supply either `blink`, `interrupt` or `pwm` as commandline
+  argument.
+* [`flash.sh`](flash.sh): Upload a `.hex` file to your board. You need to press the reset button
+  before calling this script! Supply either `blink`, `interrupt` or `pwm` as commandline argument.
+
 ## License
 
 Licensed under either of

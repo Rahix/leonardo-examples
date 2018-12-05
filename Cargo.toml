@@ -2,6 +2,7 @@
 authors = ["Rahix <rahix@rahix.de>"]
 name = "leonardo-examples"
 version = "0.0.0"
+publish = false
 
 [[bin]]
 name = "blink"
@@ -21,8 +22,8 @@ path = "src/pwm.rs"
 
 [dependencies]
 atmega32u4 = "0.1.3"
-atmega32u4-hal = "0.1.3"
-arduino-leonardo = "0.1.2"
+atmega32u4-hal = "0.1.4"
+arduino-leonardo = "0.1.3"
 
 [profile]
 

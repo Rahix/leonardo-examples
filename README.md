@@ -1,3 +1,9 @@
+# Deprecation Note:
+**Refer to the examples in [`avr-hal`](https://github.com/Rahix/avr-hal) instead.**
+
+For Arduino Leonardo, they can be found in [`boards/arduino-leonardo/examples`](https://github.com/Rahix/avr-hal/tree/master/boards/arduino-leonardo/examples).
+
+
 # Arduino Leonardo Examples in Rust
 
 A few examples of using the `arduino-leonardo`, `atmega32u4-hal` and `atmega32u4` crates.
